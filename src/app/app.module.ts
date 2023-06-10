@@ -7,17 +7,26 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { MainWindowComponent } from './components/main-window/main-window.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {weatherReducer} from "./store/reducers/weather.reducer";
+import {WeatherEffect} from "./store/effects/weather.effect";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainWindowComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    StoreModule.forRoot({weather: weatherReducer}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([WeatherEffect]),
     StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
