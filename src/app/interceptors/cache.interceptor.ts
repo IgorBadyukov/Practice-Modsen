@@ -10,8 +10,6 @@ import {Observable, of, tap} from 'rxjs';
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
 
-  constructor() {}
-
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.method === 'GET') {
       const cachedResponse = localStorage.getItem(request.url);

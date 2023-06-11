@@ -7,8 +7,6 @@ import {catchError, Observable, of} from "rxjs";
 })
 export class GeolocationService {
 
-  constructor() { }
-
   getCurrentLocation() {
     return new Observable<IGeolocation>((observer) => {
       if (navigator.geolocation) {

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {fetchGeolocation, fetchGeolocationError, fetchGeolocationSuccess} from "../actions/geolocation.action";
 import {GeolocationService} from "../../services/geolocation.service";
-import {catchError, concatMap, map, of, switchMapTo, tap} from "rxjs";
+import {catchError, concatMap, of, switchMapTo} from "rxjs";
 import {Store} from "@ngrx/store";
 import {fetchWeatherByCoordinates} from "../actions/weather.action";
 

@@ -4,7 +4,7 @@ import {API_KEY, WEATHER_URL} from "../utils/constants";
 import {IGeolocation, IWeather} from "../models/models";
 import {Store} from "@ngrx/store";
 import {getCoordinates} from "../store/selectors/geolocation.selector";
-import {map, switchMap, switchMapTo} from "rxjs";
+import {switchMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
