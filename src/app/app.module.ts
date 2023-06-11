@@ -1,6 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
@@ -12,6 +11,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {weatherReducer} from "./store/reducers/weather.reducer";
 import {WeatherEffect} from "./store/effects/weather.effect";
+import {NgxSpinnerModule} from "ngx-spinner";
+import {CommonModule} from "@angular/common";
+import {GeolocationEffect} from "./store/effects/geolocation.effect";
+import {geolocationReducer} from "./store/reducers/geolocation.reducer";
 
 @NgModule({
   declarations: [
@@ -20,14 +23,16 @@ import {WeatherEffect} from "./store/effects/weather.effect";
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({weather: weatherReducer}, {}),
+    StoreModule.forRoot({weather: weatherReducer, geolocation: geolocationReducer},{}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([WeatherEffect]),
-    StoreRouterConnectingModule.forRoot()
+    EffectsModule.forRoot([WeatherEffect, GeolocationEffect]),
+    StoreRouterConnectingModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

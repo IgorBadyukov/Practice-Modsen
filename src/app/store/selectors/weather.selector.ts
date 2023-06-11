@@ -1,13 +1,7 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {AppState} from "../state.model";
+import {AppStateWeather} from "../state.model";
 
 export const getWeatherStore = createFeatureSelector('weather');
-
-export const getWeather = createSelector(getWeatherStore as any, (state: AppState) => {
-  state.weather;
-});
-
-export const getIsFetchedWeather = createSelector(getWeatherStore as any, (state: AppState) => {
-  state.fetchedWeather
-});
+export const getWeather = createSelector(getWeatherStore as any, (state: AppStateWeather) => state.weather);
+export const getIsFetchedWeather = createSelector(getWeatherStore as any, (state: AppStateWeather) => state.fetchedWeather);
 

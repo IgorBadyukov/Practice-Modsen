@@ -48,3 +48,8 @@ export interface IWeather {
   }[],
   message: number
 }
+
+export interface IGeolocation {
+  lat: number | null,
+  lon: number | null
+}

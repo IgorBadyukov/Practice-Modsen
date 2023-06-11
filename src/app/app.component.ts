@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {WeatherService} from "./services/weather.service";
 import {Store} from "@ngrx/store";
-import {fetchWeather} from "./store/actions/weather.action";
+import {getIsFetchedWeather} from "./store/selectors/weather.selector";
+import {fetchGeolocation} from "./store/actions/geolocation.action";
+import {getIsFetchedGeolocation} from "./store/selectors/geolocation.selector";
+
 
 @Component({
   selector: 'app-root',
@@ -11,10 +13,14 @@ import {fetchWeather} from "./store/actions/weather.action";
 export class AppComponent implements OnInit{
   title = 'weather-forecast';
 
-  constructor(private weatherServices: WeatherService, private store: Store) {
+  constructor(private store: Store) {
   }
 
   ngOnInit() {
-    this.store.dispatch(fetchWeather());
+    this.store.dispatch(fetchGeolocation());
+  }
+
+  checkLoad() {
+    return (this.store.select(getIsFetchedWeather) && this.store.select(getIsFetchedGeolocation));
   }
 }

@@ -1,12 +1,23 @@
-import {IWeather} from "../models/models";
+import {IGeolocation, IWeather} from "../models/models";
 
 
-export interface AppState {
+export interface AppStateWeather {
   weather: IWeather | null,
-  fetchedWeather: boolean
+  fetchedWeather: boolean,
 }
 
-export const initialSate = {
+export interface AppStateGeolocation {
+  geolocation: IGeolocation | null,
+  fetchedGeolocation: boolean,
+}
+
+export const initialSateWeather = {
   weather: null,
-  fetchedWeather: false
-} as AppState;
+  fetchedWeather: false,
+} as AppStateWeather;
+
+
+export const initialSateGeolocation = {
+  geolocation: null,
+  fetchedGeolocation: false
+} as AppStateGeolocation;
