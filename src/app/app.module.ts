@@ -8,13 +8,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MainWindowComponent } from './components/main-window/main-window.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {weatherReducer} from "./store/reducers/weather.reducer";
 import {WeatherEffect} from "./store/effects/weather.effect";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {CommonModule} from "@angular/common";
 import {GeolocationEffect} from "./store/effects/geolocation.effect";
 import {geolocationReducer} from "./store/reducers/geolocation.reducer";
+import {CacheInterceptor} from "./interceptors/cache.interceptor";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,11 @@ import {geolocationReducer} from "./store/reducers/geolocation.reducer";
     StoreRouterConnectingModule.forRoot(),
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: CacheInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
