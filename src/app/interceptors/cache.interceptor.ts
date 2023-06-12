@@ -6,12 +6,13 @@ import {
   HttpInterceptor, HttpResponse
 } from '@angular/common/http';
 import {Observable, of, tap} from 'rxjs';
+import {WEATHER_URL} from "../utils/constants";
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.method === 'GET') {
+    if (request.method === 'GET' && request.url.includes(WEATHER_URL)) {
       const cachedResponse = localStorage.getItem(request.url);
       const expiration = localStorage.getItem(request.url + '_expiration');
 

@@ -1,1 +1,14 @@
-<div class="window__wrapper"></div>
+<div class="window__wrapper">
+  <div class="header">
+    <div class="date-city__info">
+      <div class="date__info">
+        <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time}}</p>
+        <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
+      </div>
+      <div class="city__info">
+        <p class="city">{{currentCity}}</p>
+        <p class="country">{{currentCountry}}</p>
+      </div>
+    </div>
+  </div>
+</div>

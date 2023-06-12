@@ -16,11 +16,15 @@ import {CommonModule} from "@angular/common";
 import {GeolocationEffect} from "./store/effects/geolocation.effect";
 import {geolocationReducer} from "./store/reducers/geolocation.reducer";
 import {CacheInterceptor} from "./interceptors/cache.interceptor";
+import { TimePipe } from './pipes/time.pipe';
+import { DatePipe } from './pipes/date.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainWindowComponent
+    MainWindowComponent,
+    TimePipe,
+    DatePipe
   ],
   imports: [
     BrowserModule,

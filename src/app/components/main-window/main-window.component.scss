@@ -1,6 +1,38 @@
 .window__wrapper {
-  margin: 100px auto 0;
+  margin: 40px auto 0;
   width: 80%;
   background-color: grey;
   height: 500px;
+  color: #FFFFFF;
+  padding: 20px 43px;
+  .header {
+    .date-city__info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .date__info {
+        margin-right: 10px;
+        .time {
+          font-size: 70px;
+          margin: 0;
+        }
+        .date {
+          font-size: 20px;
+          margin: 0;
+        }
+      }
+      .city__info {
+        .city {
+          font-size: 40px;
+          margin: 0;
+        }
+        .country {
+          margin: 0;
+          font-size: 20px;
+          text-align: right;
+        }
+
+      }
+    }
+  }
 }
