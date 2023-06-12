@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {getCoordinates} from "../store/selectors/geolocation.selector";
-import {Observable, shareReplay, switchMap} from "rxjs";
-import {IDateTime, IGeolocation, IWeather} from "../models/models";
-import {DATETIME_API_KEY, DATETIME_URL, WEATHER_API_KEY, WEATHER_URL} from "../utils/constants";
+import {switchMap} from "rxjs";
+import {IDateTime, IGeolocation} from "../models/models";
+import {DATETIME_API_KEY, DATETIME_URL} from "../utils/constants";
 import {Store} from "@ngrx/store";
 
 @Injectable({

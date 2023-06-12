@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {IDateTime, IWeather} from "../../models/models";
 import {getWeather} from "../../store/selectors/weather.selector";
@@ -12,7 +12,7 @@ import {MainWindowService} from "../../services/main-window.service";
 })
 export class MainWindowComponent implements OnInit, OnDestroy {
   public weather$: Observable<IWeather | null> | null = null;
-  public currentDateTime: string = '';
+  public currentDateTime = '';
   public currentCity = '';
   public currentCountry = '';
   private subscription: Subscription | null = null;
