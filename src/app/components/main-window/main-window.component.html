@@ -2,7 +2,7 @@
   <div class="header">
     <div class="date-city__info">
       <div class="date__info">
-        <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time}}</p>
+        <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time: true}}</p>
         <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
       </div>
       <div class="city__info">
@@ -11,4 +11,54 @@
       </div>
     </div>
   </div>
+  <ul class="description-weather__list">
+    <div class="column">
+      <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <li class="description-weather__item" *ngIf="i < 4">
+          <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
+          <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
+        </li>
+      </ng-container>
+    </div>
+    <div class="column">
+      <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <li class="description-weather__item" *ngIf="i >= 4 && i < 8">
+          <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
+          <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
+        </li>
+      </ng-container>
+    </div>
+    <div class="column">
+      <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <li class="description-weather__item" *ngIf="i >= 8 && i < 12">
+          <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
+          <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
+        </li>
+      </ng-container>
+    </div>
+    <div class="column">
+      <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <li class="description-weather__item" *ngIf="i >= 12 && i < 16">
+          <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
+          <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
+        </li>
+      </ng-container>
+    </div>
+    <div class="column">
+      <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <li class="description-weather__item" *ngIf="i >= 16 && i < 20">
+          <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
+          <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
+        </li>
+      </ng-container>
+    </div>
+    <div class="column">
+      <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <li class="description-weather__item" *ngIf="i >= 20 && i < 24">
+          <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
+          <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
+        </li>
+      </ng-container>
+    </div>
+  </ul>
 </div>

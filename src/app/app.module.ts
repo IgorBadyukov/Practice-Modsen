@@ -11,20 +11,21 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {weatherReducer} from "./store/reducers/weather.reducer";
 import {WeatherEffect} from "./store/effects/weather.effect";
-import {NgxSpinnerModule} from "ngx-spinner";
-import {CommonModule} from "@angular/common";
+import {CommonModule, DecimalPipe} from "@angular/common";
 import {GeolocationEffect} from "./store/effects/geolocation.effect";
 import {geolocationReducer} from "./store/reducers/geolocation.reducer";
 import {CacheInterceptor} from "./interceptors/cache.interceptor";
 import { TimePipe } from './pipes/time.pipe';
 import { DatePipe } from './pipes/date.pipe';
+import { CurrentWeatherPipe } from './pipes/current-weather.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainWindowComponent,
     TimePipe,
-    DatePipe
+    DatePipe,
+    CurrentWeatherPipe
   ],
   imports: [
     BrowserModule,
@@ -36,14 +37,13 @@ import { DatePipe } from './pipes/date.pipe';
     StoreModule.forRoot({weather: weatherReducer, geolocation: geolocationReducer},{}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([WeatherEffect, GeolocationEffect]),
-    StoreRouterConnectingModule.forRoot(),
-    NgxSpinnerModule
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: CacheInterceptor,
     multi: true
-  }],
+  }, DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
