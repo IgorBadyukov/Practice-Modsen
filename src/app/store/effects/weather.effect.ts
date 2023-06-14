@@ -7,7 +7,7 @@ import {
   fetchWeatherError,
   fetchWeatherSuccess
 } from "../actions/weather.action";
-import {map, catchError, of, switchMap} from "rxjs";
+import {map, catchError, of, switchMap, tap} from "rxjs";
 import {Store} from "@ngrx/store";
 
 @Injectable()
@@ -30,11 +30,16 @@ export class WeatherEffect {
   fetchWeatherByName$ = createEffect(() =>
     this.action$.pipe(
       ofType(fetchWeatherByName),
-      switchMap(() =>
-        this.weatherService.getWeather().pipe(
+      map((action) => {
+        return action.name;
+      }),
+      switchMap((name: string) => {
+        return this.weatherService.getWeatherByName(name).pipe(
           map((weather) => fetchWeatherSuccess({ weather })),
           catchError(() => of(fetchWeatherError()))
         )
+      }
+
       )
     )
   );

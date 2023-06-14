@@ -1,4 +1,4 @@
-<app-main-window *ngIf="!(checkLoad() | async)"></app-main-window>
-<div class="mask" *ngIf="checkLoad() | async">
+<app-main-window *ngIf="!(checkLoadWeather() | async) && !(checkLoadGeolocation() | async)"></app-main-window>
+<div class="mask" *ngIf="(checkLoadWeather() | async) || (checkLoadGeolocation() | async)">
   <div class="loader"></div>
 </div>

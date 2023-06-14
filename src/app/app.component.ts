@@ -13,14 +13,18 @@ import {getIsFetchedGeolocation} from "./store/selectors/geolocation.selector";
 export class AppComponent implements OnInit{
   title = 'weather-forecast';
 
-  constructor(private store: Store) {
+  constructor(public store: Store) {
   }
 
   ngOnInit() {
     this.store.dispatch(fetchGeolocation());
   }
 
-  checkLoad() {
-    return (this.store.select(getIsFetchedWeather) && this.store.select(getIsFetchedGeolocation));
+  checkLoadWeather() {
+    return this.store.select(getIsFetchedWeather);
+  }
+
+  checkLoadGeolocation() {
+    return this.store.select(getIsFetchedGeolocation);
   }
 }

@@ -10,11 +10,10 @@ import {switchMap} from "rxjs";
   providedIn: 'root'
 })
 export class WeatherService {
-
   constructor(private http: HttpClient, private store: Store) { }
 
-  getWeather () {
-    return this.http.get<IWeather>(WEATHER_URL + '?q=Minsk&appid=' + WEATHER_API_KEY);
+  getWeatherByName (name: string) {
+    return this.http.get<IWeather>(WEATHER_URL + `?q=${name}&appid=` + WEATHER_API_KEY);
   }
 
   getWeatherByCoordinates() {
