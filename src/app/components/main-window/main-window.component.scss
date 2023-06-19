@@ -1,4 +1,5 @@
 .window__wrapper {
+  position: relative;
   margin: 40px auto 0;
   width: 80%;
   background-image: url("../../../assets/img_2.png");
@@ -70,6 +71,32 @@
         .text__description {
 
         }
+      }
+    }
+  }
+  .week-weather__wrapper {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    left: 0;
+    border-radius: 0 0 20px 20px;
+    height: 200px;
+    justify-content: right;
+    .day__week {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      flex-basis: 20%;
+      padding: 10px 0;
+      .day__name {
+
+      }
+      .weather__icon {
+        width: 100px;
+        height: 100px;
       }
     }
   }

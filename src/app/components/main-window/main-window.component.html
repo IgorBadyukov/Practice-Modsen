@@ -5,7 +5,7 @@
         <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time: true}}</p>
         <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
       </div>
-      <input type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity($event)" [(ngModel)]="inputCity">
+      <input class="time" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity($event)" [(ngModel)]="inputCity">
       <div class="city__info">
         <p class="city">{{currentCity}}</p>
         <p class="country">{{currentCountry}}</p>
@@ -30,4 +30,11 @@
       </ng-container>
     </div>
   </ul>
+  <div class="week-weather__wrapper">
+    <div class="day__week" *ngFor="let weatherItem of weatherList | weekWeather; let i = index">
+      <div class="day__name">{{weatherItem.date | dayName}}</div>
+      <img class="weather__icon" src="https://openweathermap.org/img/wn/{{weatherItem.mostFrequentIcon}}@2x.png" alt="weather-icon">
+      <div class="day__temperature">{{(weatherItem.maxTemperature - 273.15) | number: '2.0-0'}}°</div>
+    </div>
+  </div>
 </div>

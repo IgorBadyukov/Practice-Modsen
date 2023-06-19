@@ -24,7 +24,7 @@ import {getCoordinates} from "../../store/selectors/geolocation.selector";
   styleUrls: ['./main-window.component.scss']
 })
 export class MainWindowComponent implements OnInit, OnDestroy {
-  public currentDateTime = '';
+  public currentDateTime: string = '';
   public currentCity = '';
   public currentCountry = '';
   private subscriptionDateTime: Subscription | null = null;

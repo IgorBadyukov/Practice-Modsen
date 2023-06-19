@@ -18,6 +18,9 @@ import {CacheInterceptor} from "./interceptors/cache.interceptor";
 import { TimePipe } from './pipes/time.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { CurrentWeatherPipe } from './pipes/current-weather.pipe';
+import { WeekWeatherPipe } from './pipes/week-weather.pipe';
+import { DayNamePipe } from './pipes/day-name.pipe';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { CurrentWeatherPipe } from './pipes/current-weather.pipe';
     MainWindowComponent,
     TimePipe,
     DatePipe,
-    CurrentWeatherPipe
+    CurrentWeatherPipe,
+    WeekWeatherPipe,
+    DayNamePipe,
   ],
   imports: [
     BrowserModule,

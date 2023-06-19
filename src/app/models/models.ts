@@ -42,7 +42,7 @@ export interface IDateTime {
 }
 
 export interface IWeatherList {
-  clouds: { all: 75 },
+  clouds: { all: number },
   dt: number,
   dt_txt: string,
   main: {
