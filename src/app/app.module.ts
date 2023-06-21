@@ -20,6 +20,7 @@ import { DatePipe } from './pipes/date.pipe';
 import { CurrentWeatherPipe } from './pipes/current-weather.pipe';
 import { WeekWeatherPipe } from './pipes/week-weather.pipe';
 import { DayNamePipe } from './pipes/day-name.pipe';
+import { BackgroundWeatherDirective } from './directives/background-weather.directive';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { DayNamePipe } from './pipes/day-name.pipe';
     CurrentWeatherPipe,
     WeekWeatherPipe,
     DayNamePipe,
+    BackgroundWeatherDirective,
   ],
   imports: [
     BrowserModule,

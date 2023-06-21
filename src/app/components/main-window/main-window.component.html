@@ -1,4 +1,4 @@
-<div class="window__wrapper">
+<div *ngIf="currentWeather" class="window__wrapper" appBackgroundWeather [currentWeather]="currentWeather.weather[0].icon">
   <div class="header">
     <div class="date-city__info">
       <div class="date__info">

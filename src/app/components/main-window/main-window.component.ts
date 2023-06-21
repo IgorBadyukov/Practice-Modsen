@@ -30,6 +30,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
   private subscriptionDateTime: Subscription | null = null;
   private subscriptionWeather: Subscription | null = null;
   public weatherList: IWeatherList[] = [];
+  public currentWeather: IWeatherList;
   public inputCity = '';
   public dateTime$: Observable<IDateTime> | null = null;
 
@@ -46,6 +47,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
            this.currentCity = data.cityName;
            this.currentCountry = data.countryName;
            this.inputCity = data.cityName;
+           this.currentWeather = this.weatherList[0];
          }
        });
      }
