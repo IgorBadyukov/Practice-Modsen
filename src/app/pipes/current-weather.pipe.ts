@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {IWeatherList} from "../models/models";
+import { IWeatherList } from '../models/weather.model';
 
 @Pipe({
-  name: 'currentWeather'
+  name: 'currentWeather',
 })
 export class CurrentWeatherPipe implements PipeTransform {
-
   transform(weather: IWeatherList[], date: string): IWeatherList[] {
     return weather.filter((weatherItem: IWeatherList) => {
       const weatherDate = new Date(weatherItem.dt_txt);
@@ -13,5 +12,4 @@ export class CurrentWeatherPipe implements PipeTransform {
       return currentDate.getDate() === weatherDate.getDate();
     });
   }
-
 }

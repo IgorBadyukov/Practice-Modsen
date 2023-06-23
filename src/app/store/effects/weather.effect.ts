@@ -1,19 +1,22 @@
-import {Injectable} from "@angular/core";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {WeatherService} from "../../services/weather.service";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { WeatherService } from '../../services/weather.service';
 import {
   fetchWeatherByCoordinates,
   fetchWeatherByName,
   fetchWeatherError,
-  fetchWeatherSuccess
-} from "../actions/weather.action";
-import {map, catchError, of, switchMap, tap} from "rxjs";
-import {Store} from "@ngrx/store";
+  fetchWeatherSuccess,
+} from '../actions/weather.action';
+import { map, catchError, of, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class WeatherEffect {
-  constructor(private action$: Actions, private weatherService: WeatherService, private store: Store) {
-  }
+  constructor(
+    private action$: Actions,
+    private weatherService: WeatherService,
+    private store: Store,
+  ) {}
 
   fetchWeatherByCoordinates$ = createEffect(() =>
     this.action$.pipe(
@@ -21,10 +24,10 @@ export class WeatherEffect {
       switchMap(() =>
         this.weatherService.getWeatherByCoordinates().pipe(
           map((weather) => fetchWeatherSuccess({ weather })),
-          catchError(() => of(fetchWeatherError()))
-        )
-      )
-    )
+          catchError(() => of(fetchWeatherError())),
+        ),
+      ),
+    ),
   );
 
   fetchWeatherByName$ = createEffect(() =>
@@ -36,11 +39,9 @@ export class WeatherEffect {
       switchMap((name: string) => {
         return this.weatherService.getWeatherByName(name).pipe(
           map((weather) => fetchWeatherSuccess({ weather })),
-          catchError(() => of(fetchWeatherError()))
-        )
-      }
-
-      )
-    )
+          catchError(() => of(fetchWeatherError())),
+        );
+      }),
+    ),
   );
 }

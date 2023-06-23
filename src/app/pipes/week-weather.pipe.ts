@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {IWeatherList} from "../models/models";
+import { IWeatherList, WeatherInfo } from '../models/weather.model';
 
 @Pipe({
-  name: 'weekWeather'
+  name: 'weekWeather',
 })
 export class WeekWeatherPipe implements PipeTransform {
-
   transform(weatherList: IWeatherList[]): WeatherInfo[] {
     const weatherInfoByDay: { [key: string]: WeatherInfo } = {};
     weatherList.forEach((weatherItem) => {
@@ -15,7 +14,7 @@ export class WeekWeatherPipe implements PipeTransform {
           date: date,
           maxTemperature: Number.MIN_SAFE_INTEGER,
           mostFrequentIcon: '',
-          iconCount: {}
+          iconCount: {},
         };
       }
       if (weatherItem.main.temp > weatherInfoByDay[date].maxTemperature) {
@@ -49,12 +48,4 @@ export class WeekWeatherPipe implements PipeTransform {
     }
     return weatherInfoArray;
   }
-
-}
-
-interface WeatherInfo {
-  date: string;
-  maxTemperature: number;
-  mostFrequentIcon: string;
-  iconCount: { [key: string]: number };
 }

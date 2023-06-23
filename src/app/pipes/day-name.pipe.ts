@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'dayName'
+  name: 'dayName',
 })
 export class DayNamePipe implements PipeTransform {
-
   transform(date: string): string {
     const dayOfWeekNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const parts = date.split('-');
@@ -14,5 +13,4 @@ export class DayNamePipe implements PipeTransform {
     const dayOfWeekIndex = new Date(year, month, day).getDay();
     return dayOfWeekNames[dayOfWeekIndex];
   }
-
 }

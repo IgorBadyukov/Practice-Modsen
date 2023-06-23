@@ -7,21 +7,20 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MainWindowComponent } from './components/main-window/main-window.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {weatherReducer} from "./store/reducers/weather.reducer";
-import {WeatherEffect} from "./store/effects/weather.effect";
-import {CommonModule, DecimalPipe} from "@angular/common";
-import {GeolocationEffect} from "./store/effects/geolocation.effect";
-import {geolocationReducer} from "./store/reducers/geolocation.reducer";
-import {CacheInterceptor} from "./interceptors/cache.interceptor";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { weatherReducer } from './store/reducers/weather.reducer';
+import { WeatherEffect } from './store/effects/weather.effect';
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { GeolocationEffect } from './store/effects/geolocation.effect';
+import { geolocationReducer } from './store/reducers/geolocation.reducer';
+import { CacheInterceptor } from './interceptors/cache.interceptor';
 import { TimePipe } from './pipes/time.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { CurrentWeatherPipe } from './pipes/current-weather.pipe';
 import { WeekWeatherPipe } from './pipes/week-weather.pipe';
 import { DayNamePipe } from './pipes/day-name.pipe';
 import { BackgroundWeatherDirective } from './directives/background-weather.directive';
-
 
 @NgModule({
   declarations: [
@@ -41,16 +40,22 @@ import { BackgroundWeatherDirective } from './directives/background-weather.dire
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({weather: weatherReducer, geolocation: geolocationReducer},{}),
+    StoreModule.forRoot(
+      { weather: weatherReducer, geolocation: geolocationReducer },
+      {},
+    ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([WeatherEffect, GeolocationEffect]),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: CacheInterceptor,
-    multi: true
-  }, DecimalPipe],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CacheInterceptor,
+      multi: true,
+    },
+    DecimalPipe,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

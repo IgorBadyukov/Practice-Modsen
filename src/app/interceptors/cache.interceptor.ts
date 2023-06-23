@@ -3,15 +3,19 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse
+  HttpInterceptor,
+  HttpResponse,
 } from '@angular/common/http';
-import {Observable, of, tap} from 'rxjs';
-import {WEATHER_URL} from "../utils/constants";
+import { Observable, of, tap } from 'rxjs';
+import { WEATHER_URL } from '../utils/constants';
+import { IWeather } from '../models/weather.model';
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<IWeather>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<any>> {
     if (request.method === 'GET' && request.url.includes(WEATHER_URL)) {
       const cachedResponse = localStorage.getItem(request.url);
       const expiration = localStorage.getItem(request.url + '_expiration');
@@ -32,9 +36,12 @@ export class CacheInterceptor implements HttpInterceptor {
             localStorage.setItem(request.url, JSON.stringify(event));
             const expirationDate = new Date();
             expirationDate.setHours(expirationDate.getHours() + 2);
-            localStorage.setItem(request.url + '_expiration', expirationDate.toISOString());
+            localStorage.setItem(
+              request.url + '_expiration',
+              expirationDate.toISOString(),
+            );
           }
-        })
+        }),
       );
     } else {
       return next.handle(request);

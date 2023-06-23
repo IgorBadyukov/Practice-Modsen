@@ -1,25 +1,32 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {WEATHER_API_KEY, WEATHER_URL} from "../utils/constants";
-import {IGeolocation, IWeather} from "../models/models";
-import {Store} from "@ngrx/store";
-import {getCoordinates} from "../store/selectors/geolocation.selector";
-import {switchMap} from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { WEATHER_API_KEY, WEATHER_URL } from '../utils/constants';
+import { Store } from '@ngrx/store';
+import { getCoordinates } from '../store/selectors/geolocation.selector';
+import { switchMap } from 'rxjs';
+import { IWeather } from '../models/weather.model';
+import { IGeolocation } from '../models/geolocation.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WeatherService {
-  constructor(private http: HttpClient, private store: Store) { }
+  constructor(private http: HttpClient, private store: Store) {}
 
-  getWeatherByName (name: string) {
-    return this.http.get<IWeather>(WEATHER_URL + `?q=${name}&appid=` + WEATHER_API_KEY);
+  getWeatherByName(name: string) {
+    return this.http.get<IWeather>(
+      WEATHER_URL + `?q=${name}&appid=` + WEATHER_API_KEY,
+    );
   }
 
   getWeatherByCoordinates() {
-    return this.store.select(getCoordinates).pipe(switchMap((coordinates) => {
-      const { lat, lon } = coordinates as IGeolocation;
-      return this.http.get<IWeather>(WEATHER_URL + `?lat=${lat}&lon=${lon}&appid=` + WEATHER_API_KEY);
-    }))
+    return this.store.select(getCoordinates).pipe(
+      switchMap((coordinates) => {
+        const { lat, lon } = coordinates as IGeolocation;
+        return this.http.get<IWeather>(
+          WEATHER_URL + `?lat=${lat}&lon=${lon}&appid=` + WEATHER_API_KEY,
+        );
+      }),
+    );
   }
 }
