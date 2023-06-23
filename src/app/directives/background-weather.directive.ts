@@ -4,7 +4,7 @@ import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
   selector: '[appBackgroundWeather]',
 })
 export class BackgroundWeatherDirective implements OnInit {
-  @Input('currentWeather') weatherID: string | undefined;
+  @Input() weatherID: string | undefined;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 

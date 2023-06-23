@@ -30,7 +30,6 @@ export class WeekWeatherPipe implements PipeTransform {
     for (const date in weatherInfoByDay) {
       if (weatherInfoByDay.hasOwnProperty(date)) {
         const weatherInfo = weatherInfoByDay[date];
-        const temperaturesCount = Object.keys(weatherInfo.iconCount).length;
         let maxCount = 0;
         let mostFrequentIcon = '';
         for (const icon in weatherInfo.iconCount) {

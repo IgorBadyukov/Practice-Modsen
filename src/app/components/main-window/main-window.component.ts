@@ -14,7 +14,7 @@ import { IWeatherList } from '../../models/weather.model';
 export class MainWindowComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  currentDateTime: string = '';
+  currentDateTime = '';
 
   currentCity = '';
 
@@ -53,7 +53,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
       });
   }
 
-  enterCity(event: Event) {
+  enterCity() {
     this.store.dispatch(fetchWeatherByName({ name: this.inputCity }));
   }
 

@@ -1,11 +1,11 @@
-<div *ngIf="currentWeather" class="window__wrapper" appBackgroundWeather [currentWeather]="currentWeather.weather[0].icon">
+<div *ngIf="currentWeather" class="window__wrapper" appBackgroundWeather [weatherID]="currentWeather.weather[0].icon">
   <div class="header">
     <div class="date-city__info">
       <div class="date__info">
         <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time: true}}</p>
         <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
       </div>
-      <input class="time" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity($event)" [(ngModel)]="inputCity">
+      <input class="time" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
       <div class="city__info">
         <p class="city">{{currentCity}}</p>
         <p class="country">{{currentCountry}}</p>
