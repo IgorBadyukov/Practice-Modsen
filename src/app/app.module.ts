@@ -21,6 +21,7 @@ import { CurrentWeatherPipe } from './pipes/current-weather.pipe';
 import { WeekWeatherPipe } from './pipes/week-weather.pipe';
 import { DayNamePipe } from './pipes/day-name.pipe';
 import { BackgroundWeatherDirective } from './directives/background-weather.directive';
+import { ModalErrorComponent } from './components/modal-error/modal-error.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { BackgroundWeatherDirective } from './directives/background-weather.dire
     WeekWeatherPipe,
     DayNamePipe,
     BackgroundWeatherDirective,
+    ModalErrorComponent,
   ],
   imports: [
     BrowserModule,

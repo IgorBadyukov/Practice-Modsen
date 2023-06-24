@@ -50,6 +50,8 @@ export class MainWindowComponent implements OnInit, OnDestroy {
               }
             });
         }
+      }, () => {
+        console.log('Такой город не найден: ' + this.inputCity);
       });
   }
 
