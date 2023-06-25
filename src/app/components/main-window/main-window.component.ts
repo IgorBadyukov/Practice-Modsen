@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getWeather } from '../../store/selectors/weather.selector';
 import { interval, startWith, Subject, switchMapTo, takeUntil } from 'rxjs';
 import { MainWindowService } from '../../services/main-window.service';
 import { fetchWeatherByName } from '../../store/actions/weather.action';
 import { IWeatherList } from '../../models/weather.model';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-main-window',
@@ -13,7 +14,7 @@ import { IWeatherList } from '../../models/weather.model';
 })
 export class MainWindowComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
-
+  suggestions: any[] = []
   currentDateTime = '';
 
   currentCity = '';
@@ -29,6 +30,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private mainWindowService: MainWindowService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,23 @@ export class MainWindowComponent implements OnInit, OnDestroy {
       }, () => {
         console.log('Такой город не найден: ' + this.inputCity);
       });
+  }
+
+  selectSuggestion(suggestion: any) {
+    this.inputCity = suggestion.matching_full_name.split(',')[0].trim();
+    this.suggestions = [];
+  }
+
+  getAutocompleteSuggestions() {
+    const url = `https://api.teleport.org/api/cities/?search=${this.inputCity}&limit=5`;
+    this.http.get(url).subscribe((response: any) => {
+      if (response._embedded && response._embedded["city:search-results"]) {
+        this.suggestions = response._embedded["city:search-results"];
+        console.log(this.suggestions);
+      } else {
+        this.suggestions = [];
+      }
+    });
   }
 
   enterCity() {

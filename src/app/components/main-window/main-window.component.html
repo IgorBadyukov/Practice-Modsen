@@ -5,7 +5,12 @@
         <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time: true}}</p>
         <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
       </div>
-      <input class="time" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
+      <div class="autocomplete-container">
+        <input class="time" (input)="getAutocompleteSuggestions()" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
+        <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
+          <li class="autocomplete-item" *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">{{ suggestion.matching_full_name }}</li>
+        </ul>
+      </div>
       <div class="city__info">
         <p class="city">{{currentCity}}</p>
         <p class="country">{{currentCountry}}</p>

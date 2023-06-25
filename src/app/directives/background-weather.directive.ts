@@ -9,7 +9,6 @@ export class BackgroundWeatherDirective implements OnInit {
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
-    console.log('Check weather: ', this.weatherID);
     switch (this.weatherID) {
       case '01d':
         this.renderer.setStyle(

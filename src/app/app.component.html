@@ -2,5 +2,4 @@
 <div class="mask" *ngIf="(checkLoadWeather() | async) || (checkLoadGeolocation() | async)">
   <div class="loader"></div>
 </div>
-<app-modal-error [@modalAnimation] *ngIf="isOpen"
-                 [errorMessage]="errorMessage" (closeModal)="onCloseModal()"></app-modal-error>
+<app-modal-error *ngIf="isOpen" [errorMessage]="errorMessage" (closeModal)="onCloseModal()"></app-modal-error>
