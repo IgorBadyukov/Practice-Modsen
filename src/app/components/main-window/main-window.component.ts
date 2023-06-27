@@ -63,11 +63,14 @@ export class MainWindowComponent implements OnInit, OnDestroy {
   }
 
   getAutocompleteSuggestions() {
+    if (this.inputCity === '') {
+      this.suggestions = [];
+      return;
+    }
     const url = `https://api.teleport.org/api/cities/?search=${this.inputCity}&limit=5`;
     this.http.get(url).subscribe((response: any) => {
       if (response._embedded && response._embedded["city:search-results"]) {
         this.suggestions = response._embedded["city:search-results"];
-        console.log(this.suggestions);
       } else {
         this.suggestions = [];
       }

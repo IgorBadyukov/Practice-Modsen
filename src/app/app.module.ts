@@ -22,6 +22,11 @@ import { WeekWeatherPipe } from './pipes/week-weather.pipe';
 import { DayNamePipe } from './pipes/day-name.pipe';
 import { BackgroundWeatherDirective } from './directives/background-weather.directive';
 import { ModalErrorComponent } from './components/modal-error/modal-error.component';
+import { AveragePressurePipe } from './pipes/average-pressure.pipe';
+import { FeelsTemperaturePipe } from './pipes/feels-temperature.pipe';
+import { WindSpeedPipe } from './pipes/wind-speed.pipe';
+import { MaxTemperaturePipe } from './pipes/max-temperature.pipe';
+import { AverageCloudsPipe } from './pipes/average-clouds.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,11 @@ import { ModalErrorComponent } from './components/modal-error/modal-error.compon
     DayNamePipe,
     BackgroundWeatherDirective,
     ModalErrorComponent,
+    AveragePressurePipe,
+    FeelsTemperaturePipe,
+    WindSpeedPipe,
+    MaxTemperaturePipe,
+    AverageCloudsPipe,
   ],
   imports: [
     BrowserModule,
