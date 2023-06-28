@@ -27,6 +27,7 @@ import { FeelsTemperaturePipe } from './pipes/feels-temperature.pipe';
 import { WindSpeedPipe } from './pipes/wind-speed.pipe';
 import { MaxTemperaturePipe } from './pipes/max-temperature.pipe';
 import { AverageCloudsPipe } from './pipes/average-clouds.pipe';
+import { RoundPipePipe } from './pipes/round-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AverageCloudsPipe } from './pipes/average-clouds.pipe';
     WindSpeedPipe,
     MaxTemperaturePipe,
     AverageCloudsPipe,
+    RoundPipePipe,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div *ngIf="currentWeather" class="window__wrapper" appBackgroundWeather [weatherID]="currentWeather.weather[0].icon">
+<div *ngIf="currentWeather" class="window__wrapper" appBackgroundWeather [weatherID]="this.currentIcon">
   <div class="header">
     <div class="date-city__info">
       <div class="date__info">
@@ -6,9 +6,9 @@
         <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
       </div>
       <div class="autocomplete-container">
-        <input class="time" (input)="getAutocompleteSuggestions()" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
+        <input class="time" (blur)="this.suggestions = [];" (input)="getAutocompleteSuggestions()" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
         <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
-          <li class="autocomplete-item" *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">{{ suggestion.matching_full_name }}</li>
+          <li class="autocomplete-item" *ngFor="let suggestion of suggestions" (mousedown)="selectSuggestion(suggestion)">{{ suggestion.matching_full_name }}</li>
         </ul>
       </div>
       <div class="city__info">
@@ -20,7 +20,7 @@
   <div class="info__current-weather">
     <ul class="description-weather__list">
       <div class="column">
-        <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <ng-container *ngFor="let weatherItem of weatherList | currentWeather: activeDate; let i = index">
           <li class="description-weather__item" *ngIf="i < 4">
             <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
             <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
@@ -28,7 +28,7 @@
         </ng-container>
       </div>
       <div class="column">
-        <ng-container *ngFor="let weatherItem of weatherList | currentWeather: currentDateTime; let i = index">
+        <ng-container *ngFor="let weatherItem of weatherList | currentWeather: activeDate; let i = index">
           <li class="description-weather__item" *ngIf="i >= 4">
             <span class="time__description">{{weatherItem.dt_txt | time: false}}</span>
             <span class="text__description">{{weatherItem.weather[0].description | titlecase}}</span>
@@ -39,36 +39,38 @@
     <div class="weather-day__data">
       <div class="weather-character__item">
         <p>Max temp</p>
-        <div class="weather__index">{{((weatherList | feelsTemperature: currentDateTime) - 273.15) | number: '2.0-0'}}</div>
+        <div class="weather__index">{{((weatherList | feelsTemperature: activeDate) - 273.15) | number: '2.0-0'}}</div>
         <p>C°</p>
       </div>
       <div class="weather-character__item">
         <p>Feel temp</p>
-        <div class="weather__index">{{((weatherList | maxTemperature: currentDateTime) - 273.15) | number: '2.0-0'}}</div>
+        <div class="weather__index">{{((weatherList | maxTemperature: activeDate) - 273.15) | number: '2.0-0'}}</div>
         <p>C°</p>
       </div>
       <div class="weather-character__item">
         <p>Wind speed</p>
-        <div class="weather__index">{{weatherList | windSpeed: currentDateTime | number: '2.0-1'}}</div>
+        <div class="weather__index">{{weatherList | windSpeed: activeDate | roundPipe: 1}}</div>
         <p>m/sec</p>
       </div>
       <div class="weather-character__item">
         <p>Pressure</p>
-        <div class="weather__index">{{weatherList | averagePressure: currentDateTime}}</div>
+        <div class="weather__index">{{weatherList | averagePressure: activeDate | roundPipe: 1}}</div>
         <p>pHa</p>
       </div>
       <div class="weather-character__item">
         <p>Clouds</p>
-        <div class="weather__index">{{weatherList | averageClouds: currentDateTime}}</div>
+        <div class="weather__index">{{weatherList | averageClouds: activeDate | roundPipe: 1}}</div>
         <p>%</p>
       </div>
     </div>
   </div>
   <div class="week-weather__wrapper">
-    <div class="day__week" *ngFor="let weatherItem of weatherList | weekWeather; let i = index">
-      <div class="day__name">{{weatherItem.date | dayName}}</div>
-      <img class="weather__icon" src="https://openweathermap.org/img/wn/{{weatherItem.mostFrequentIcon}}@2x.png" alt="weather-icon">
-      <div class="day__temperature">{{(weatherItem.maxTemperature - 273.15) | number: '2.0-0'}}°</div>
+    <div class="day__week" *ngFor="let weatherItem of (weatherList | weekWeather).slice(0,5); let i = index"  (click)="toggleWeather(weatherItem.date, weatherItem.mostFrequentIcon)">
+      <div class="day__week__wrapper" [ngClass]="{'active': (weatherItem.date | dayName) === (activeDate | dayName)}">
+        <div class="day__name">{{weatherItem.date | dayName}}</div>
+        <img class="weather__icon" src="https://openweathermap.org/img/wn/{{weatherItem.mostFrequentIcon}}@2x.png" alt="weather-icon">
+        <div class="day__temperature">{{(weatherItem.maxTemperature - 273.15) | roundPipe: 0}}°</div>
+      </div>
     </div>
   </div>
 </div>

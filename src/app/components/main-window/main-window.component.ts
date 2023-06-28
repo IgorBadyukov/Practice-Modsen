@@ -14,18 +14,15 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MainWindowComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
-  suggestions: any[] = []
-  currentDateTime = '';
-
-  currentCity = '';
-
-  currentCountry = '';
-
+  suggestions: any[] = [];
+  currentIcon: string = '';
+  currentDateTime: string = '';
+  activeDate: string = '';
+  currentCity: string = '';
+  currentCountry: string = '';
   weatherList: IWeatherList[] = [];
-
   currentWeather: IWeatherList;
-
-  inputCity = '';
+  inputCity: string = '';
 
   constructor(
     private store: Store,
@@ -34,17 +31,22 @@ export class MainWindowComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscribeWeather()
+    this.store.select(getWeather)
       .pipe(takeUntil(this.destroy$))
       .subscribe((weather) => {
         if (weather) {
           this.weatherList = [...(weather?.list as IWeatherList[])];
-          this.mainWindowService
-            .getDateAndTimeByCoordinates()
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((data) => {
+          this.activeDate = this.weatherList[0].dt_txt;
+          this.currentIcon = this.findMostRepeatedIcon(this.activeDate);
+          interval(30000).pipe(
+            startWith(0),
+            switchMapTo(
+              this.mainWindowService
+              .getDateAndTimeByCoordinates()
+              .pipe(takeUntil(this.destroy$)))).subscribe((data) => {
               if (data) {
                 this.currentDateTime = data.formatted;
+                this.activeDate = this.activeDate === '' ? data.formatted : this.activeDate;
                 this.currentCity = data.cityName;
                 this.currentCountry = data.countryName;
                 this.inputCity = data.cityName;
@@ -77,15 +79,32 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     });
   }
 
-  enterCity() {
-    this.store.dispatch(fetchWeatherByName({ name: this.inputCity }));
+  findMostRepeatedIcon(targetDate: string): string {
+    const iconCount: { [icon: string]: number } = {};
+    for (const weather of this.weatherList) {
+      if (weather.dt_txt.substr(0, 10) === targetDate.substr(0, 10)) {
+        const icon = weather.weather[0].icon;
+        iconCount[icon] = (iconCount[icon] || 0) + 1;
+      }
+    }
+    let mostRepeatedIcon = '';
+    let maxCount = 0;
+    for (const icon in iconCount) {
+      if (iconCount[icon] > maxCount) {
+        mostRepeatedIcon = icon;
+        maxCount = iconCount[icon];
+      }
+    }
+    return mostRepeatedIcon;
   }
 
-  subscribeWeather() {
-    return interval(30000).pipe(
-      startWith(0),
-      switchMapTo(this.store.select(getWeather)),
-    );
+  toggleWeather (date: string, icon: string) {
+    this.activeDate = date;
+    this.currentIcon = icon;
+  }
+
+  enterCity() {
+    this.store.dispatch(fetchWeatherByName({ name: this.inputCity }));
   }
 
   ngOnDestroy() {
