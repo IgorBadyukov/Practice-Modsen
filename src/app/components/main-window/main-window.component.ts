@@ -10,7 +10,7 @@ import { ISuggestion } from '../../models/suggestion.model';
 @Component({
   selector: 'app-main-window',
   templateUrl: './main-window.component.html',
-  styleUrls: ['./main-window.component.scss'],
+  styleUrls: ['./main-window.component.scss', './main-window.media.scss'],
 })
 export class MainWindowComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
