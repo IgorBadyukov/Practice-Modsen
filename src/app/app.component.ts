@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { getIsFetchedWeather } from './store/selectors/weather.selector';
 import { fetchGeolocation } from './store/actions/geolocation.action';
 import { getIsFetchedGeolocation } from './store/selectors/geolocation.selector';
-import {ErrorService} from "./services/error.service";
+import { ErrorService } from './services/error.service';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +12,16 @@ import {ErrorService} from "./services/error.service";
 })
 export class AppComponent implements OnInit {
   title = 'weather-forecast';
+
   isOpen = false;
+
   errorMessage = '';
 
   constructor(public store: Store, private errorService: ErrorService) {
-    this.errorService.isOpen$.subscribe(isOpen => {
+    this.errorService.isOpen$.subscribe((isOpen) => {
       this.isOpen = isOpen;
     });
-    this.errorService.errorMessage$.subscribe(errorMessage => {
+    this.errorService.errorMessage$.subscribe((errorMessage) => {
       this.errorMessage = errorMessage;
     });
   }

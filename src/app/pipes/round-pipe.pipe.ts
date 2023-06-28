@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'roundPipe'
+  name: 'roundPipe',
 })
 export class RoundPipePipe implements PipeTransform {
-
   transform(value: number | string, precision: number): string {
     if (typeof value === 'number') {
       return value.toFixed(precision);
@@ -16,5 +15,4 @@ export class RoundPipePipe implements PipeTransform {
     }
     return value.toString();
   }
-
 }

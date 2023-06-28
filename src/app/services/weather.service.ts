@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { WEATHER_API_KEY, WEATHER_URL } from '../utils/constants';
 import { Store } from '@ngrx/store';
 import { getCoordinates } from '../store/selectors/geolocation.selector';
-import { switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { IWeather } from '../models/weather.model';
 import { IGeolocation } from '../models/geolocation.model';
 
@@ -13,13 +13,13 @@ import { IGeolocation } from '../models/geolocation.model';
 export class WeatherService {
   constructor(private http: HttpClient, private store: Store) {}
 
-  getWeatherByName(name: string) {
+  getWeatherByName(name: string): Observable<IWeather> {
     return this.http.get<IWeather>(
       WEATHER_URL + `?q=${name}&appid=` + WEATHER_API_KEY,
     );
   }
 
-  getWeatherByCoordinates() {
+  getWeatherByCoordinates(): Observable<IWeather> {
     return this.store.select(getCoordinates).pipe(
       switchMap((coordinates) => {
         const { lat, lon } = coordinates as IGeolocation;

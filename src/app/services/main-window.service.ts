@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, switchMap } from 'rxjs';
-import { DATETIME_API_KEY, DATETIME_URL } from '../utils/constants';
+import { Observable, of, switchMap } from 'rxjs';
+import {
+  DATETIME_API_KEY,
+  DATETIME_URL,
+  SUGGESTION_URL,
+} from '../utils/constants';
 import { Store } from '@ngrx/store';
 import { getCoordinatesByWeather } from '../store/selectors/weather.selector';
 import { IDateTime } from '../models/date.model';
 import { IGeolocation } from '../models/geolocation.model';
+import { ISuggestion } from '../models/suggestion.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +18,7 @@ import { IGeolocation } from '../models/geolocation.model';
 export class MainWindowService {
   constructor(private http: HttpClient, private store: Store) {}
 
-  getDateAndTimeByCoordinates() {
+  getDateAndTimeByCoordinates(): Observable<IDateTime | null> {
     return this.store.select(getCoordinatesByWeather).pipe(
       switchMap((coordinates) => {
         if (coordinates) {
@@ -28,5 +33,9 @@ export class MainWindowService {
         }
       }),
     );
+  }
+
+  getSuggestion(inputCity: string): Observable<ISuggestion> {
+    return this.http.get<ISuggestion>(SUGGESTION_URL + inputCity + '&limit=5');
   }
 }

@@ -8,15 +8,14 @@ import {
   fetchWeatherSuccess,
 } from '../actions/weather.action';
 import { map, catchError, of, switchMap } from 'rxjs';
-import { Store } from '@ngrx/store';
-import {ErrorService} from "../../services/error.service";
+import { ErrorService } from '../../services/error.service';
 
 @Injectable()
 export class WeatherEffect {
   constructor(
     private action$: Actions,
     private weatherService: WeatherService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
   ) {}
 
   fetchWeatherByCoordinates$ = createEffect(() =>
@@ -41,9 +40,9 @@ export class WeatherEffect {
         return this.weatherService.getWeatherByName(name).pipe(
           map((weather) => fetchWeatherSuccess({ weather })),
           catchError(() => {
-            const errorMessage = 'An error occurred while fetching weather data.';
+            const errorMessage = "Such city isn't found";
             this.errorService.openModal(errorMessage);
-            return of(fetchWeatherError())
+            return of(fetchWeatherError());
           }),
         );
       }),

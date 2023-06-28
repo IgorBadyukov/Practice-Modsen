@@ -1,4 +1,10 @@
-import {Directive, ElementRef, Input, OnChanges, OnInit, Renderer2} from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+} from '@angular/core';
 
 @Directive({
   selector: '[appBackgroundWeather]',
