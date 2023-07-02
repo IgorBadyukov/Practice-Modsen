@@ -1,0 +1,171 @@
+.window__wrapper {
+  position: relative;
+  margin: 40px auto 0;
+  max-width: 1020px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  color: #FFFFFF;
+  padding: 20px 43px;
+  border-radius: 20px;
+  .header {
+    .date-city__info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .date__info {
+        margin-right: 10px;
+        .time {
+          font-size: 70px;
+          margin: 0;
+        }
+        .date {
+          font-size: 20px;
+          margin: 0;
+        }
+      }
+      .autocomplete-container {
+        position: relative;
+        width: 220px;
+        .input {
+          background-color: transparent;
+          border: 1px solid #d9d9d9;
+          border-radius: 2px;
+          font-size: 16px;
+          line-height: 24px;
+          color: #FFFFFF;
+          padding: 8px 8px 8px 12px;
+        }
+        .autocomplete-list {
+          color: #000000;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-top: none;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          .autocomplete-item {
+            padding: 10px;
+            cursor: pointer;
+            &:hover {
+              background-color: #f1f1f1;
+            }
+          }
+        }
+      }
+      .city__info {
+        .city {
+          font-size: 40px;
+          margin: 0;
+        }
+        .country {
+          margin: 0;
+          font-size: 20px;
+          text-align: right;
+        }
+      }
+    }
+  }
+  .info__current-weather {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .description-weather__list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      margin: 40px 0 0;
+      padding: 0;
+      .column {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        .description-weather__item {
+          margin-bottom: 20px;
+          .time__description {
+            background-color: grey;
+            padding: 3px 7px;
+            border-radius: 20px;
+            margin-right: 5px;
+          }
+          .text__description {
+
+          }
+        }
+      }
+    }
+    .weather-day__data {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 40px;
+      .weather-character__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+        padding: 4px 7px;
+        width: 88px;
+        border: 1px solid #cccccc;
+        height: 120px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+        &:hover {
+          transform: rotateY(360deg);
+          cursor: pointer;
+          transition: 0.7s ease-in-out;
+        }
+      }
+    }
+  }
+  .week-weather__wrapper {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    left: 0;
+    border-radius: 20px;
+    height: 200px;
+    justify-content: right;
+    .day__week {
+      flex-basis: 20%;
+      height: 100%;
+      .day__week__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        .day__name {
+          margin-top: 10px;
+        }
+        .weather__icon {
+          width: 100px;
+          height: 100px;
+        }
+        .day__temperature {
+          margin-bottom: 10px;
+        }
+        &:hover {
+          background-color: rgba(108, 108, 108, 0.5);
+          transition: 0.2s ease-in-out;
+          cursor: pointer;
+          border-radius: 20px;
+        }
+      }
+    }
+  }
+}
+
+.active {
+  border: 1px solid #aba4a4;
+  border-radius: 20px;
+}
