@@ -1,19 +1,19 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { IWeatherList, WeatherInfo } from '../models/weather.model';
+import { Pipe, PipeTransform } from "@angular/core";
+import { IWeatherList, WeatherInfo } from "../models/weather.model";
 
 @Pipe({
-  name: 'weekWeather',
+  name: "weekWeather",
 })
 export class WeekWeatherPipe implements PipeTransform {
   transform(weatherList: IWeatherList[]): WeatherInfo[] {
     const weatherInfoByDay: { [key: string]: WeatherInfo } = {};
     weatherList.forEach((weatherItem) => {
-      const date = weatherItem.dt_txt.split(' ')[0];
+      const date = weatherItem.dt_txt.split(" ")[0];
       if (!weatherInfoByDay[date]) {
         weatherInfoByDay[date] = {
           date: date,
           maxTemperature: Number.MIN_SAFE_INTEGER,
-          mostFrequentIcon: '',
+          mostFrequentIcon: "",
           iconCount: {},
         };
       }
@@ -31,7 +31,7 @@ export class WeekWeatherPipe implements PipeTransform {
       if (weatherInfoByDay.hasOwnProperty(date)) {
         const weatherInfo = weatherInfoByDay[date];
         let maxCount = 0;
-        let mostFrequentIcon = '';
+        let mostFrequentIcon = "";
         for (const icon in weatherInfo.iconCount) {
           if (weatherInfo.iconCount.hasOwnProperty(icon)) {
             const count = weatherInfo.iconCount[icon];

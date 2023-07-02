@@ -1,5 +1,5 @@
-import { IWeather } from '../models/weather.model';
-import { IGeolocation } from '../models/geolocation.model';
+import { IWeather } from "../models/weather.model";
+import { IGeolocation } from "../models/geolocation.model";
 
 export interface AppStateWeather {
   weather: IWeather | null;

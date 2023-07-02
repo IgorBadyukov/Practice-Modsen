@@ -1,10 +1,10 @@
-import { createReducer, on } from '@ngrx/store';
-import { initialSateGeolocation } from '../state.model';
+import { createReducer, on } from "@ngrx/store";
+import { initialSateGeolocation } from "../state.model";
 import {
   fetchGeolocation,
   fetchGeolocationError,
   fetchGeolocationSuccess,
-} from '../actions/geolocation.action';
+} from "../actions/geolocation.action";
 
 export const geolocationReducer = createReducer(
   initialSateGeolocation,
@@ -17,5 +17,5 @@ export const geolocationReducer = createReducer(
   on(fetchGeolocationError, (state) => ({
     ...state,
     fetchedGeolocation: false,
-  })),
+  }))
 );

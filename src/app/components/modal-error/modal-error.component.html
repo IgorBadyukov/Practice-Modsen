@@ -1,4 +1,3 @@
-
 <div class="modal__wrapper" (click)="onCloseModal($event)">
   <div class="modal" [ngClass]="{ show: !(errorService.isOpen$ | async), hide: (errorService.isOpen$ | async) }">
     <h2>Error</h2>

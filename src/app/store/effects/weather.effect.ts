@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { WeatherService } from '../../services/weather.service';
+import { Injectable } from "@angular/core";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { WeatherService } from "../../services/weather.service";
 import {
   fetchWeatherByCoordinates,
   fetchWeatherByName,
   fetchWeatherError,
   fetchWeatherSuccess,
-} from '../actions/weather.action';
-import { map, catchError, of, switchMap } from 'rxjs';
-import { ErrorService } from '../../services/error.service';
+} from "../actions/weather.action";
+import { map, catchError, of, switchMap } from "rxjs";
+import { ErrorService } from "../../services/error.service";
 
 @Injectable()
 export class WeatherEffect {
   constructor(
     private action$: Actions,
     private weatherService: WeatherService,
-    private errorService: ErrorService,
+    private errorService: ErrorService
   ) {}
 
   fetchWeatherByCoordinates$ = createEffect(() =>
@@ -24,10 +24,10 @@ export class WeatherEffect {
       switchMap(() =>
         this.weatherService.getWeatherByCoordinates().pipe(
           map((weather) => fetchWeatherSuccess({ weather })),
-          catchError(() => of(fetchWeatherError())),
-        ),
-      ),
-    ),
+          catchError(() => of(fetchWeatherError()))
+        )
+      )
+    )
   );
 
   fetchWeatherByName$ = createEffect(() =>
@@ -40,12 +40,12 @@ export class WeatherEffect {
         return this.weatherService.getWeatherByName(name).pipe(
           map((weather) => fetchWeatherSuccess({ weather })),
           catchError(() => {
-            const errorMessage = "Such city isn't found";
+            const errorMessage = "Sorry(. Such city isn't found";
             this.errorService.openModal(errorMessage);
             return of(fetchWeatherError());
-          }),
+          })
         );
-      }),
-    ),
+      })
+    )
   );
 }

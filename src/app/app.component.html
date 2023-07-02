@@ -1,5 +1,5 @@
-<app-main-window *ngIf="!(checkLoadWeather() | async) && !(checkLoadGeolocation() | async)"></app-main-window>
-<div class="mask" *ngIf="(checkLoadWeather() | async) || (checkLoadGeolocation() | async)">
+<app-main-window *ngIf="!(isLoadWeather$() | async) && !(isLoadGeolocation$() | async)"></app-main-window>
+<div class="mask" *ngIf="(isLoadWeather$() | async) || (isLoadGeolocation$() | async)">
   <div class="loader"></div>
 </div>
 <app-modal-error *ngIf="isOpen" [errorMessage]="errorMessage" (closeModal)="onCloseModal()"></app-modal-error>

@@ -1,11 +1,11 @@
-import { createReducer, on } from '@ngrx/store';
-import { initialSateWeather } from '../state.model';
+import { createReducer, on } from "@ngrx/store";
+import { initialSateWeather } from "../state.model";
 import {
   fetchWeatherByCoordinates,
   fetchWeatherByName,
   fetchWeatherError,
   fetchWeatherSuccess,
-} from '../actions/weather.action';
+} from "../actions/weather.action";
 
 export const weatherReducer = createReducer(
   initialSateWeather,
@@ -19,5 +19,5 @@ export const weatherReducer = createReducer(
     weather,
     fetchedWeather: false,
   })),
-  on(fetchWeatherError, (state) => ({ ...state, fetchedWeather: false })),
+  on(fetchWeatherError, (state) => ({ ...state, fetchedWeather: false }))
 );

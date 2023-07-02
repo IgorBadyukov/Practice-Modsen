@@ -2,8 +2,8 @@
   <div class="header">
     <div class="date-city__info">
       <div class="date__info">
-        <p class="time" *ngIf="currentDateTime !== ''">{{currentDateTime | time: true}}</p>
-        <p class="date" *ngIf="currentDateTime !== ''">{{currentDateTime | date}}</p>
+        <p class="time" *ngIf="isCurrentDateTimeEmpty">{{currentDateTime | time: true}}</p>
+        <p class="date" *ngIf="isCurrentDateTimeEmpty">{{currentDateTime | date}}</p>
       </div>
       <div class="autocomplete-container">
         <input class="time" (blur)="this.suggestions = [];" (input)="getAutocompleteSuggestions()" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
@@ -39,12 +39,12 @@
     <div class="weather-day__data">
       <div class="weather-character__item">
         <p>Max temp</p>
-        <div class="weather__index">{{((weatherList | feelsTemperature: activeDate) - 273.15) | number: '2.0-0'}}</div>
+        <div class="weather__index">{{temperatureInCelsius(weatherList | feelsTemperature: activeDate) | number: '2.0-0'}}</div>
         <p>C°</p>
       </div>
       <div class="weather-character__item">
         <p>Feel temp</p>
-        <div class="weather__index">{{((weatherList | maxTemperature: activeDate) - 273.15) | number: '2.0-0'}}</div>
+        <div class="weather__index">{{temperatureInCelsius(weatherList | maxTemperature: activeDate) | number: '2.0-0'}}</div>
         <p>C°</p>
       </div>
       <div class="weather-character__item">
@@ -65,11 +65,11 @@
     </div>
   </div>
   <div class="week-weather__wrapper">
-    <div class="day__week" *ngFor="let weatherItem of (weatherList | weekWeather).slice(0,5); let i = index"  (click)="toggleWeather(weatherItem.date, weatherItem.mostFrequentIcon)">
-      <div class="day__week__wrapper" [ngClass]="{'active': (weatherItem.date | dayName) === (activeDate | dayName)}">
+    <div class="day__week" *ngFor="let weatherItem of (weatherList | weekWeather) | slice: 0:5; let i = index"  (click)="toggleWeather(weatherItem.date, weatherItem.mostFrequentIcon)">
+      <div class="day__week__wrapper" [ngClass]="{'active': isActiveDate(weatherItem.date | dayName, activeDate | dayName)}">
         <div class="day__name">{{weatherItem.date | dayName}}</div>
         <img class="weather__icon" src="https://openweathermap.org/img/wn/{{weatherItem.mostFrequentIcon}}@2x.png" alt="weather-icon">
-        <div class="day__temperature">{{(weatherItem.maxTemperature - 273.15) | roundPipe: 0}}°</div>
+        <div class="day__temperature">{{temperatureInCelsius(weatherItem.maxTemperature) | roundPipe: 0}}°</div>
       </div>
     </div>
   </div>
