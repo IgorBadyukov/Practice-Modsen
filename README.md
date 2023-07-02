@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Deploy 
 
-Deploy URL: https://igorbadyukov.github.io/Practice-Modsen/
+Deploy URL: https://my-weather-forecast-it6e2cksq-igorbadyukov.vercel.app/
