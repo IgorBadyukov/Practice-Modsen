@@ -81,6 +81,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
   }
 
   selectSuggestion(suggestion: { matching_full_name: string }): void {
+    this.isSuggestionSkip = true;
     this.inputCity = suggestion.matching_full_name.split(",")[0].trim();
     this.store.dispatch(fetchWeatherByName({ name: this.inputCity }));
     this.suggestions = [];
@@ -99,7 +100,6 @@ export class MainWindowComponent implements OnInit, OnDestroy {
       .getSuggestion(this.inputCity)
       .pipe(takeUntil(this.destroy$))
       .subscribe((response: ISuggestion) => {
-        this.isSuggestionSkip = true;
         if (response._embedded && response._embedded["city:search-results"]) {
           this.suggestions = response._embedded["city:search-results"];
         } else {
