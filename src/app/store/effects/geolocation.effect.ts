@@ -1,21 +1,21 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   fetchGeolocation,
   fetchGeolocationError,
   fetchGeolocationSuccess,
-} from "../actions/geolocation.action";
-import { GeolocationService } from "../../services/geolocation.service";
-import { catchError, concatMap, of, switchMap } from "rxjs";
-import { Store } from "@ngrx/store";
-import { fetchWeatherByCoordinates } from "../actions/weather.action";
+} from '../actions/geolocation.action';
+import { GeolocationService } from '../../services/geolocation.service';
+import { catchError, concatMap, of, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { fetchWeatherByCoordinates } from '../actions/weather.action';
 
 @Injectable()
 export class GeolocationEffect {
   constructor(
     private action$: Actions,
     private geolocationService: GeolocationService,
-    private store: Store
+    private store: Store,
   ) {}
 
   fetchGeolocation$ = createEffect(() =>
@@ -27,9 +27,9 @@ export class GeolocationEffect {
             fetchGeolocationSuccess({ geolocation }),
             fetchWeatherByCoordinates(),
           ]),
-          catchError(() => of(fetchGeolocationError()))
+          catchError(() => of(fetchGeolocationError())),
         );
-      })
-    )
+      }),
+    ),
   );
 }

@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { IWeatherList } from "../models/weather.model";
+import { Pipe, PipeTransform } from '@angular/core';
+import { IWeatherList } from '../models/weather-list.model';
 
 @Pipe({
-  name: "currentWeather",
+  name: 'currentWeather',
 })
 export class CurrentWeatherPipe implements PipeTransform {
   transform(weather: IWeatherList[], date: string): IWeatherList[] {

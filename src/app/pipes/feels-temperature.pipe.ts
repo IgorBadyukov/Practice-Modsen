@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { IWeatherList } from "../models/weather.model";
+import { Pipe, PipeTransform } from '@angular/core';
+import { IWeatherList } from '../models/weather-list.model';
 
 @Pipe({
-  name: "feelsTemperature",
+  name: 'feelsTemperature',
 })
 export class FeelsTemperaturePipe implements PipeTransform {
   transform(weatherList: IWeatherList[], day: string): number {
@@ -15,7 +15,7 @@ export class FeelsTemperaturePipe implements PipeTransform {
       return 0;
     }
     const maxTemperature = Math.max(
-      ...filteredWeather.map((weather) => weather.main.feels_like)
+      ...filteredWeather.map((weather) => weather.main.feels_like),
     );
     return maxTemperature;
   }

@@ -6,7 +6,7 @@
         <p class="date" *ngIf="isCurrentDateTimeEmpty">{{currentDateTime | date}}</p>
       </div>
       <div class="autocomplete-container">
-        <input class="time" (blur)="this.suggestions = [];" (input)="getAutocompleteSuggestions()" *ngIf="currentDateTime !== ''" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
+        <input class="time" (blur)="this.suggestions = [];" (input)="getAutocompleteSuggestions()" *ngIf="isCurrentDateTimeEmpty" type="text" class="input" placeholder="Input desired city" (keyup.enter)="enterCity()" [(ngModel)]="inputCity">
         <ul *ngIf="suggestions.length > 0" class="autocomplete-list">
           <li class="autocomplete-item" *ngFor="let suggestion of suggestions" (mousedown)="selectSuggestion(suggestion)">{{ suggestion.matching_full_name }}</li>
         </ul>
