@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { IGeolocation } from "../models/geolocation.model";
-import { catchError, Observable, of } from "rxjs";
+import { Injectable } from '@angular/core';
+import { IGeolocation } from '../models/geolocation.model';
+import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class GeolocationService {
   getCurrentLocation() {
@@ -19,20 +19,20 @@ export class GeolocationService {
           },
           (error) => {
             console.log(
-              "Error occurred while retrieving geolocation: " + error.message
+              'Error occurred while retrieving geolocation: ' + error.message,
             );
             observer.error(error);
-          }
+          },
         );
       } else {
-        console.log("Geolocation is not supported by this browser.");
-        observer.error("Geolocation is not supported");
+        console.log('Geolocation is not supported by this browser.');
+        observer.error('Geolocation is not supported');
       }
     }).pipe(
       catchError((error) => {
-        console.log("Error occurred in getCurrentLocation: " + error);
+        console.log('Error occurred in getCurrentLocation: ' + error);
         return of({ lat: 0, lon: 0 });
-      })
+      }),
     );
   }
 }

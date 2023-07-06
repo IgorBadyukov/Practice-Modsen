@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { getWeather } from "../../store/selectors/weather.selector";
-import { interval, startWith, Subject, switchMapTo, takeUntil } from "rxjs";
-import { MainWindowService } from "../../services/main-window.service";
-import { fetchWeatherByName } from "../../store/actions/weather.action";
-import { IWeatherList } from "../../models/weather.model";
-import { ISuggestion } from "../../models/suggestion.model";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getWeather } from '../../store/selectors/weather.selector';
+import { interval, startWith, Subject, switchMapTo, takeUntil } from 'rxjs';
+import { MainWindowService } from '../../services/main-window.service';
+import { fetchWeatherByName } from '../../store/actions/weather.action';
+import { ISuggestion } from '../../models/suggestion.model';
+import { IWeatherList } from '../../models/weather-list.model';
 
 @Component({
-  selector: "app-main-window",
-  templateUrl: "./main-window.component.html",
-  styleUrls: ["./main-window.component.scss", "./main-window.media.scss"],
+  selector: 'app-main-window',
+  templateUrl: './main-window.component.html',
+  styleUrls: ['./main-window.component.scss', './main-window.media.scss'],
 })
 export class MainWindowComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
@@ -21,25 +21,25 @@ export class MainWindowComponent implements OnInit, OnDestroy {
 
   suggestions: { matching_full_name: string }[] = [];
 
-  currentIcon = "";
+  currentIcon = '';
 
-  _currentDateTime = "";
+  _currentDateTime = '';
 
-  activeDate = "";
+  activeDate = '';
 
-  currentCity = "";
+  currentCity = '';
 
-  currentCountry = "";
+  currentCountry = '';
 
   weatherList: IWeatherList[] = [];
 
   currentWeather: IWeatherList;
 
-  inputCity = "";
+  inputCity = '';
 
   constructor(
     private store: Store,
-    private mainWindowService: MainWindowService
+    private mainWindowService: MainWindowService,
   ) {}
 
   ngOnInit(): void {
@@ -58,14 +58,14 @@ export class MainWindowComponent implements OnInit, OnDestroy {
                 switchMapTo(
                   this.mainWindowService
                     .getDateAndTimeByCoordinates()
-                    .pipe(takeUntil(this.destroy$))
-                )
+                    .pipe(takeUntil(this.destroy$)),
+                ),
               )
               .subscribe((data) => {
                 if (data) {
                   this.currentDateTime = data.formatted;
                   this.activeDate =
-                    this.activeDate === "" ? data.formatted : this.activeDate;
+                    this.activeDate === '' ? data.formatted : this.activeDate;
                   this.currentCity = data.cityName;
                   this.currentCountry = data.countryName;
                   this.inputCity = data.cityName;
@@ -75,20 +75,20 @@ export class MainWindowComponent implements OnInit, OnDestroy {
           }
         },
         () => {
-          console.log("Такой город не найден: " + this.inputCity);
-        }
+          console.log('Такой город не найден: ' + this.inputCity);
+        },
       );
   }
 
   selectSuggestion(suggestion: { matching_full_name: string }): void {
     this.isSuggestionSkip = true;
-    this.inputCity = suggestion.matching_full_name.split(",")[0].trim();
+    this.inputCity = suggestion.matching_full_name.split(',')[0].trim();
     this.store.dispatch(fetchWeatherByName({ name: this.inputCity }));
     this.suggestions = [];
   }
 
   getAutocompleteSuggestions(): void {
-    if (this.inputCity === "") {
+    if (this.inputCity === '') {
       this.suggestions = [];
       return;
     }
@@ -100,8 +100,8 @@ export class MainWindowComponent implements OnInit, OnDestroy {
       .getSuggestion(this.inputCity)
       .pipe(takeUntil(this.destroy$))
       .subscribe((response: ISuggestion) => {
-        if (response._embedded && response._embedded["city:search-results"]) {
-          this.suggestions = response._embedded["city:search-results"];
+        if (response._embedded && response._embedded['city:search-results']) {
+          this.suggestions = response._embedded['city:search-results'];
         } else {
           this.suggestions = [];
         }
@@ -116,7 +116,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
         iconCount[icon] = (iconCount[icon] || 0) + 1;
       }
     }
-    let mostRepeatedIcon = "";
+    let mostRepeatedIcon = '';
     let maxCount = 0;
     for (const icon in iconCount) {
       if (iconCount[icon] > maxCount) {
@@ -138,18 +138,18 @@ export class MainWindowComponent implements OnInit, OnDestroy {
 
   set currentDateTime(value: string) {
     this._currentDateTime = value;
-    this.isCurrentDateTimeEmpty = this.currentDateTime !== "";
+    this.isCurrentDateTimeEmpty = this.currentDateTime !== '';
   }
 
   get currentDateTime(): string {
     return this._currentDateTime;
   }
 
-  temperatureInCelsius(temp: number) {
+  temperatureInCelsius(temp: number): number {
     return temp - 273.15;
   }
 
-  isActiveDate(date: string, activeDate: string) {
+  isActiveDate(date: string, activeDate: string): boolean {
     return date === activeDate;
   }
 

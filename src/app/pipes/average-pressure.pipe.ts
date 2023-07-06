@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from "@angular/core";
-import { IWeatherList } from "../models/weather.model";
+import { Pipe, PipeTransform } from '@angular/core';
+import { IWeatherList } from '../models/weather-list.model';
 
 @Pipe({
-  name: "averagePressure",
+  name: 'averagePressure',
 })
 export class AveragePressurePipe implements PipeTransform {
   transform(weatherList: IWeatherList[], day: string): number {
@@ -16,7 +16,7 @@ export class AveragePressurePipe implements PipeTransform {
     }
     const totalPressure = filteredWeather.reduce(
       (sum, weather) => sum + weather.main.pressure,
-      0
+      0,
     );
     const averagePressure = totalPressure / filteredWeather.length;
     return averagePressure;

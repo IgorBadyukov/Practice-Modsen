@@ -88,6 +88,11 @@
       .date-city__info {
         flex-direction: column;
         gap: 10px;
+        .city__info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
       }
     }
     .info__current-weather {

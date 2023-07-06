@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { getIsFetchedWeather } from "./store/selectors/weather.selector";
-import { fetchGeolocation } from "./store/actions/geolocation.action";
-import { getIsFetchedGeolocation } from "./store/selectors/geolocation.selector";
-import { ErrorService } from "./services/error.service";
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getIsFetchedWeather } from './store/selectors/weather.selector';
+import { fetchGeolocation } from './store/actions/geolocation.action';
+import { getIsFetchedGeolocation } from './store/selectors/geolocation.selector';
+import { ErrorService } from './services/error.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = "weather-forecast";
+  title = 'weather-forecast';
 
   isOpen = false;
 
-  errorMessage = "";
+  errorMessage = '';
 
   constructor(public store: Store, private errorService: ErrorService) {
     this.errorService.isOpen$.subscribe((isOpen) => {
