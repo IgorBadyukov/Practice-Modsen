@@ -18,9 +18,7 @@ export class GeolocationService {
             observer.complete();
           },
           (error) => {
-            console.log(
-              'Error occurred while retrieving geolocation: ' + error.message,
-            );
+            console.log('Error occurred while retrieving geolocation: ' + error.message);
             observer.error(error);
           },
         );

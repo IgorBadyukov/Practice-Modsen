@@ -12,10 +12,7 @@ import { IWeather } from '../models/weather.model';
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
-  intercept(
-    request: HttpRequest<IWeather>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<IWeather>> {
+  intercept(request: HttpRequest<IWeather>, next: HttpHandler): Observable<HttpEvent<IWeather>> {
     if (request.method === 'GET' && request.url.includes(WEATHER_URL)) {
       const cachedResponse = localStorage.getItem(request.url);
       const expiration = localStorage.getItem(request.url + '_expiration');
@@ -36,10 +33,7 @@ export class CacheInterceptor implements HttpInterceptor {
             localStorage.setItem(request.url, JSON.stringify(event));
             const expirationDate = new Date();
             expirationDate.setHours(expirationDate.getHours() + 2);
-            localStorage.setItem(
-              request.url + '_expiration',
-              expirationDate.toISOString(),
-            );
+            localStorage.setItem(request.url + '_expiration', expirationDate.toISOString());
           }
         }),
       );

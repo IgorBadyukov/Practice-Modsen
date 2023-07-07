@@ -17,8 +17,6 @@ export class MainWindowComponent implements OnInit, OnDestroy {
 
   isCurrentDateTimeEmpty: boolean;
 
-  isSuggestionSkip = true;
-
   suggestions: { matching_full_name: string }[] = [];
 
   currentIcon = '';
@@ -37,10 +35,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
 
   inputCity = '';
 
-  constructor(
-    private store: Store,
-    private mainWindowService: MainWindowService,
-  ) {}
+  constructor(private store: Store, private mainWindowService: MainWindowService) {}
 
   ngOnInit(): void {
     this.store
@@ -64,8 +59,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
               .subscribe((data) => {
                 if (data) {
                   this.currentDateTime = data.formatted;
-                  this.activeDate =
-                    this.activeDate === '' ? data.formatted : this.activeDate;
+                  this.activeDate = this.activeDate === '' ? data.formatted : this.activeDate;
                   this.currentCity = data.cityName;
                   this.currentCountry = data.countryName;
                   this.inputCity = data.cityName;
@@ -81,19 +75,14 @@ export class MainWindowComponent implements OnInit, OnDestroy {
   }
 
   selectSuggestion(suggestion: { matching_full_name: string }): void {
-    this.isSuggestionSkip = true;
     this.inputCity = suggestion.matching_full_name.split(',')[0].trim();
     this.store.dispatch(fetchWeatherByName({ name: this.inputCity }));
     this.suggestions = [];
   }
 
   getAutocompleteSuggestions(): void {
-    if (this.inputCity === '') {
+    if (this.inputCity.length < 3) {
       this.suggestions = [];
-      return;
-    }
-    this.isSuggestionSkip = !this.isSuggestionSkip;
-    if (this.isSuggestionSkip) {
       return;
     }
     this.mainWindowService

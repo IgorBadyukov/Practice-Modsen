@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap } from 'rxjs';
-import {
-  DATETIME_API_KEY,
-  DATETIME_URL,
-  SUGGESTION_URL,
-} from '../utils/constants';
+import { DATETIME_API_KEY, DATETIME_URL, SUGGESTION_URL } from '../utils/constants';
 import { Store } from '@ngrx/store';
 import { getCoordinatesByWeather } from '../store/selectors/weather.selector';
 import { IDateTime } from '../models/date.model';
@@ -24,9 +20,7 @@ export class MainWindowService {
         if (coordinates) {
           const { lat, lon } = coordinates as IGeolocation;
           return this.http.get<IDateTime>(
-            DATETIME_URL +
-              DATETIME_API_KEY +
-              `&format=json&by=position&lat=${lat}&lng=${lon}`,
+            DATETIME_URL + DATETIME_API_KEY + `&format=json&by=position&lat=${lat}&lng=${lon}`,
           );
         } else {
           return of(null);

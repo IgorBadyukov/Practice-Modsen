@@ -11,7 +11,6 @@ export const getIsFetchedWeather = createSelector(
   getWeatherStore as any,
   (state: AppStateWeather) => state.fetchedWeather,
 );
-export const getCoordinatesByWeather = createSelector(
-  getWeather as any,
-  (weather: IWeather) => (weather ? weather.city.coord : null),
+export const getCoordinatesByWeather = createSelector(getWeather as any, (weather: IWeather) =>
+  weather ? weather.city.coord : null,
 );

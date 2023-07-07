@@ -14,9 +14,7 @@ export class MaxTemperaturePipe implements PipeTransform {
     if (filteredWeather.length === 0) {
       return 0;
     }
-    const maxTemperature = Math.max(
-      ...filteredWeather.map((weather) => weather.main.temp_max),
-    );
+    const maxTemperature = Math.max(...filteredWeather.map((weather) => weather.main.temp_max));
     return maxTemperature;
   }
 }
