@@ -14,9 +14,7 @@ export class FeelsTemperaturePipe implements PipeTransform {
     if (filteredWeather.length === 0) {
       return 0;
     }
-    const maxTemperature = Math.max(
-      ...filteredWeather.map((weather) => weather.main.feels_like),
-    );
+    const maxTemperature = Math.max(...filteredWeather.map((weather) => weather.main.feels_like));
     return maxTemperature;
   }
 }

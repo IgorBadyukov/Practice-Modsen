@@ -14,9 +14,7 @@ export class WeatherService {
   constructor(private http: HttpClient, private store: Store) {}
 
   getWeatherByName(name: string): Observable<IWeather> {
-    return this.http.get<IWeather>(
-      WEATHER_URL + `?q=${name}&appid=` + WEATHER_API_KEY,
-    );
+    return this.http.get<IWeather>(WEATHER_URL + `?q=${name}&appid=` + WEATHER_API_KEY);
   }
 
   getWeatherByCoordinates(): Observable<IWeather> {

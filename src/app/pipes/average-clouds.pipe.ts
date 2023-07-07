@@ -14,10 +14,7 @@ export class AverageCloudsPipe implements PipeTransform {
     if (filteredWeather.length === 0) {
       return 0;
     }
-    const totalPressure = filteredWeather.reduce(
-      (sum, weather) => sum + weather.clouds.all,
-      0,
-    );
+    const totalPressure = filteredWeather.reduce((sum, weather) => sum + weather.clouds.all, 0);
     const averagePressure = totalPressure / filteredWeather.length;
     return averagePressure;
   }

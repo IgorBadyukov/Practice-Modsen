@@ -54,10 +54,7 @@ import { RoundPipePipe } from './pipes/round-pipe.pipe';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot(
-      { weather: weatherReducer, geolocation: geolocationReducer },
-      {},
-    ),
+    StoreModule.forRoot({ weather: weatherReducer, geolocation: geolocationReducer }, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([WeatherEffect, GeolocationEffect]),
     StoreRouterConnectingModule.forRoot(),

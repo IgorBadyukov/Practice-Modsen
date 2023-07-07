@@ -10,11 +10,5 @@ export const getIsFetchedGeolocation = createSelector(
   getGetGeolocationStore as any,
   (state: AppStateGeolocation) => state.fetchedGeolocation,
 );
-export const getLatitude = createSelector(
-  getCoordinates,
-  (geolocaton) => geolocaton?.lat,
-);
-export const getLongitude = createSelector(
-  getCoordinates,
-  (geolocaton) => geolocaton?.lon,
-);
+export const getLatitude = createSelector(getCoordinates, (geolocaton) => geolocaton?.lat);
+export const getLongitude = createSelector(getCoordinates, (geolocaton) => geolocaton?.lon);
